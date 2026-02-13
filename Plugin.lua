@@ -1,4 +1,4 @@
-local LibNameUnityOnly ="libunity.so"
+local LibNameUnityOnly ="libil2cpp.so"
 local __bundle_require, __bundle_loaded, __bundle_register, __bundle_modules = (function(superRequire)
 local loadingPlaceholder = {[{}] = true}
 local register
@@ -170,11 +170,21 @@ Il2cpp = setmetatable({}, {
 __call = function(self, config)
 config = config or {}
 getmetatable(self).__index = Il2cppBase
-if config.libilcpp then
-self.il2cppStart, self.il2cppEnd = config.libilcpp.start, config.libilcpp['end']
+
+local unity = gg.getRangesList("libunity.so")
+local il2cpp = gg.getRangesList("libil2cpp.so")
+
+if unity and #unity > 0 then
+    self.il2cppStart = unity[1].start
+    self.il2cppEnd = unity[#unity]["end"]
+elseif il2cpp and #il2cpp > 0 then
+    self.il2cppStart = il2cpp[1].start
+    self.il2cppEnd = il2cpp[#il2cpp]["end"]
 else
-self.il2cppStart, self.il2cppEnd = Searcher.FindIl2cpp()
+    self.il2cppStart, self.il2cppEnd = Searcher.FindIl2cpp()
 end
+
+
 if config.globalMetadata then
 self.globalMetadataStart, self.globalMetadataEnd = config.globalMetadata.start, config.globalMetadata['end']
 else
@@ -2344,4 +2354,3 @@ FIELD_ATTRIBUTE_LITERAL = 0x0040,
 }
 end)
 return __bundle_require("GGIl2cpp")
-
