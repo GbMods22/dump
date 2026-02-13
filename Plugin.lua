@@ -1,4 +1,4 @@
-local LibNameUnityOnly ="libil2cpp.so"
+local LibNameUnityOnly ="libunity.so"
 local __bundle_require, __bundle_loaded, __bundle_register, __bundle_modules = (function(superRequire)
 local loadingPlaceholder = {[{}] = true}
 local register
@@ -2344,3 +2344,4 @@ FIELD_ATTRIBUTE_LITERAL = 0x0040,
 }
 end)
 return __bundle_require("GGIl2cpp")
+
